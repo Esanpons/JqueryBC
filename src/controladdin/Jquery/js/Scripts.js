@@ -5,79 +5,63 @@ function InitHtml() {
     controlAddIn = $("#controlAddIn");
 
     cargando();
+
 }
 
 function todoElHtmlInicial() {
+    console.log("todoElHtmlInicial!");
+    var texto = 'texto inicial insertado';
 
-    var text = 'Inicio';
+    $.get(Microsoft.Dynamics.NAV.GetImageResource("src/controladdin/Jquery/html/main.html"), function (htmlexterno) {
+        controlAddIn.html(htmlexterno);
 
-    controlAddIn.html(
-        `
-        <div id="div1">`+ text + `...</div>
-        <br />
-        <input type="button" id="button1" value="Cambiar texto" />
-        <input type="button" id="button2" value="Toggle" />
-        <input type="button" id="button3" value="FadeIn" />
-        <input type="button" id="button4" value="hover" />
+        var div1 = $("#div1");
+        div1.text(texto);
 
-        <br />
-        <br />
-        <br />
+        var div2 = $("#div2");
+        var parDiv2 = $("<p />", { id: "pd2" });
+        parDiv2.text('text par div 2');
+        div2.append(parDiv2);
 
-        <p> 1 línea </p>
-        <p> 2 línea </p>
-        <p> 3 línea </p>
-        <input type="button" id="button5" value="Propiedades CSS" />
+        var parDiv3 = $("<p />", { id: "pd3" });
+        parDiv3.text('text par div 3');
+        div2.append(parDiv3);
 
-        <br />
-        <br />
-        <br />
+        var br = $("<br />");
+        controlAddIn.append(br);
 
-        <div id="imagenes"></div>
-        <input type="button" id="button6" value="remove Image" />
-        
-        <br />
-        <input type="button" id="button7" value="Cargando" />
+        //una manera diferente de añadir html
+        //https://ksdconsultancy.blog/2019/01/05/control-add-in-in-business-central/
+        var par = $("<p />", { id: "p1" });
+        par.html("nueva línea");
+        controlAddIn.append(par);
 
-        <br />
-        `
-    );
+        var par2 = $("<p />", { id: "p2" });
+        par2.html("nueva línea2");
+        controlAddIn.append(par2);
 
-    var br = $("<br />");
-    controlAddIn.append(br);
+        var img = $("<img />", { id: "imgCorazon", src: Microsoft.Dynamics.NAV.GetImageResource("src/controladdin/Jquery/images/corazon.jpg") });
+        $("#imagenes").append(img);
 
-    //una manera diferente de añadir html
-    //https://ksdconsultancy.blog/2019/01/05/control-add-in-in-business-central/
-    var par = $("<p />", { id: "p1" });
-    par.html("nueva línea");
-    controlAddIn.append(par);
+        controlAddIn.append(br);
+        controlAddIn.append(br);
+        controlAddIn.append(br);
 
-    var par2 = $("<p />", { id: "p2" });
-    par2.html("nueva línea2");
-    controlAddIn.append(par2);
+        var bt8 = $("<input />", { type: "button", id: "button8", value: "Quitar TODO y añadir HTML jQuery UI" });
+        controlAddIn.append(bt8);
 
+        //esto equivaldria al $(document).ready
+        var NuevoTexto = "Nuevo Hola";
+        $("#button1").click({ value: NuevoTexto }, notify);
+        $("#button2").click(toggle);
+        $("#button3").click(FadeIn);
+        $("#button4").hover(HoverAndSlide);
+        $("#button5").click(CssJquery);
+        $("#button6").click(removeImage);
+        $("#button7").click(cargando);
+        $("#button8").click(RemoveAndAddJqueryUI);
 
-    var img = $("<img />", { id: "imgCorazon", src: Microsoft.Dynamics.NAV.GetImageResource("src/controladdin/Jquery/images/corazon.jpg") });
-    $("#imagenes").append(img);
-
-    controlAddIn.append(br);
-    controlAddIn.append(br);
-    controlAddIn.append(br);
-
-    var bt8 = $("<input />", { type: "button", id: "button8", value: "Quitar TODO y añadir HTML jQuery UI" });
-    controlAddIn.append(bt8);
-
-    //esto equivaldria al $(document).ready
-    var NuevoTexto = "Nuevo Hola";
-    $("#button1").click({ value: NuevoTexto }, notify);
-    $("#button2").click(toggle);
-    $("#button3").click(FadeIn);
-    $("#button4").hover(HoverAndSlide);
-    $("#button5").click(CssJquery);
-    $("#button6").click(removeImage);
-    $("#button7").click(cargando);
-    $("#button8").click(RemoveAndAddJqueryUI);
-
+    });
 }
 
 function notify(Mgs) {
@@ -135,10 +119,23 @@ function RemoveAndAddJqueryUI() {
     HtmlJqueryUI();
 }
 
-
 function SetDataText(SetText) {
     console.log('SetText');
     $('#div1').html(SetText);
+}
+
+function OnclickButton(evento) {
+    console.log(evento);
+    console.log('controlAddIn2', $("#imagenes"));
+
+    $(document).ready(function () {
+        console.log("document loaded");
+    });
+
+    $(window).on("load", function () {
+        console.log("window loaded");
+    });
+
 }
 
 
