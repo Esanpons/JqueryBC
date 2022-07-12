@@ -1,19 +1,20 @@
 var controlAddIn;
-var TextDiv1, BtnButton1;
 
-function InitHtml() {
-    controlAddIn = $("#controlAddIn");
-
-    cargando();
-
-}
-
-function todoElHtmlInicial() {
-    console.log("todoElHtmlInicial!");
+function CrearTodoElHtmlInicial() {
     var texto = 'texto inicial insertado';
+    var Html;
 
-    $.get(Microsoft.Dynamics.NAV.GetImageResource("src/controladdin/Jquery/html/main.html"), function (htmlexterno) {
-        controlAddIn.html(htmlexterno);
+    var getHtml = $.get(Microsoft.Dynamics.NAV.GetImageResource("src/controladdin/Jquery/html/HtmlJquery.html"), function (htmlExterno) {
+        Html = htmlExterno;
+    });
+
+    getHtml.fail(function () {
+        alert("error");
+    });
+
+    getHtml.done(function () {
+        controlAddIn.empty();
+        controlAddIn.html(Html);
 
         var div1 = $("#div1");
         div1.text(texto);
@@ -30,8 +31,6 @@ function todoElHtmlInicial() {
         var br = $("<br />");
         controlAddIn.append(br);
 
-        //una manera diferente de añadir html
-        //https://ksdconsultancy.blog/2019/01/05/control-add-in-in-business-central/
         var par = $("<p />", { id: "p1" });
         par.html("nueva línea");
         controlAddIn.append(par);
@@ -47,11 +46,17 @@ function todoElHtmlInicial() {
         controlAddIn.append(br);
         controlAddIn.append(br);
 
-        var bt8 = $("<input />", { type: "button", id: "button8", value: "Quitar TODO y añadir HTML jQuery UI" });
+        var bt7 = $("<input />", { type: "button", id: "button7", value: "Cargando y creando de nuevo" });
+        controlAddIn.append(bt7);
+
+        controlAddIn.append(br);
+
+        var bt8 = $("<button />", { id: "button8", text: "Quitar TODO y añadir HTML jQuery UI" });
         controlAddIn.append(bt8);
 
         //esto equivaldria al $(document).ready
         var NuevoTexto = "Nuevo Hola";
+
         $("#button1").click({ value: NuevoTexto }, notify);
         $("#button2").click(toggle);
         $("#button3").click(FadeIn);
@@ -60,16 +65,14 @@ function todoElHtmlInicial() {
         $("#button6").click(removeImage);
         $("#button7").click(cargando);
         $("#button8").click(RemoveAndAddJqueryUI);
-
     });
 }
 
 function notify(Mgs) {
-    $('#div1').html('hola boton: ' + Mgs.data.value);
+    $('#div1').html(Mgs.data.value);
 }
 function toggle(clickEventObject) {
     //Esto muestra el evento del boton
-    console.log(clickEventObject);
     //oculta y desoculta
     $('#div1').toggle(500);
 }
@@ -107,7 +110,7 @@ async function cargando() {
     //elimina el div creado para que se quite el cargando
     $("#divCargando").remove();
 
-    todoElHtmlInicial();
+    CrearTodoElHtmlInicial();
 }
 
 function sleep(ms) {
@@ -115,7 +118,7 @@ function sleep(ms) {
 }
 
 function RemoveAndAddJqueryUI() {
-    controlAddIn.html('');
+    controlAddIn.empty();
     HtmlJqueryUI();
 }
 
@@ -135,26 +138,8 @@ function OnclickButton(evento) {
     $(window).on("load", function () {
         console.log("window loaded");
     });
-
 }
 
 
-//*********************************************************************************************************************
-//jQuery UI
-//*********************************************************************************************************************
 
-function HtmlJqueryUI() {
-    //creamos un titulo y lo añadimos al parrafo
-    var par1 = $("<p />", { id: "p1" });
-    var h1Par1 = $("<h1 />");
-    h1Par1.html("HTML jQuery UI");
-    par1.append(h1Par1);
-    controlAddIn.append(par1);
-
-    var br = $("<br />");
-    controlAddIn.append(br);
-
-    //me he quedado aquí:  https://www.udemy.com/course/draft/21679/learn/lecture/271345#questions
-
-}
 

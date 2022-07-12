@@ -1,2 +1,2 @@
-Microsoft.Dynamics.NAV.InvokeExtensibilityMethod('ControlAddInReady', null);
-
+controlAddIn = $("#controlAddIn");
+cargando();
