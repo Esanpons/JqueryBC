@@ -14,7 +14,8 @@ controladdin "Jquery"
 
     Images = 'src/controladdin/Jquery/images/ajax-loader.gif',
             'src/controladdin/Jquery/images/corazon.jpg',
-            'src\controladdin\Jquery\html\HtmlJquery.html';
+            'src\controladdin\Jquery\html\HtmlJquery.html',
+            'src\controladdin\Jquery\html\HtmlJqueryUI.html';
 
     RefreshScript = 'src/controladdin/Jquery/js/Refresh.js';
 
